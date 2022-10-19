@@ -1,0 +1,28 @@
+vartotojas gali susikurti acounta ir matyti knygas/autorius
+administrator priskiria vartotojui autoriaus  teises ir kurti naujas roles
+autorius gali ideti knyga ir ja redaguoti ir trinti
+redaktorius patvirtina knyga, kad ji butu atvaizduojama. po kiekvieno autoriaus knygos atnaujinimo ji tampa nematoma iki 
+regakdorius ja vel approvina. create ir edit approvai skirtinguose lentelese. rodyti kas atnaujino/idejo
+redaktorius trinti negali
+owner. mato useriu sarasus. suskirstyta pagal roles. (arba filter)
+mato visas knygas net ir nepaviesintas
+
+
+
+
+
+
+
+sort/filter
+foto jei spesim
+api
+
+
+patekimas prie knygu - tikrinti ar yra role author. po author veiksmu prie knygos status default pasidaro 0;
+paprasti vartotojai mato tik aktyvias knygas, visi kiti visas. 
+sukurti roliu crudo interface. visur tikrinti ar yra role administratorius.
+authors pakeisti i users ties knygomis. 
+//autors controlleri ir views bei modeli trinti lauk. 
+kai AUTORIUS kuria knyga (ei jo role leidzia is viso kurti) jo id issisaugo automatiskai kaup author_id. 
+
+administratoriaus indexe sudeti delete/edit funkcionaluma. 
