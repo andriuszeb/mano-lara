@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<!-- <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
@@ -30,14 +30,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <h5 class="card-header fw-bold">Users</h5>
+        <h5 class="card-header fw-bold d-flex justify-content-between align-items-center">
+          Users
+          <form action="{{route('administrator.create')}}" method="get">
+          <button type="submit" class="btn btn-sm btn-success">Add New User</button>
+          </form>
+          <!-- Kodel neveikia? -->
+          <!-- <button type="submit"  onclick="route('administrator.create', $user)" class="btn btn-sm btn-success">Add New User</button> -->
+          <!-- Wrap with <div>...buttons...</div> if you have multiple buttons -->
+        </h5>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -54,24 +62,18 @@
               <td>{{$user->surname}}</td>
               <td>{{$user->role}}</td>
               <td>
-              <div class="d-grid gap-2 d-md-flex justify-content-center">
-                @if(Auth::user()->hasRole('administrator'))
-                <form method="GET" action="{{route('user.edit', $user)}}" >
-                  @csrf
-                  <button type="submit" class="btn btn-primary btn-sm">EDIT</button>
-                </form>
-                <form method="POST" action="{{route('user.destroy', $user)}}" >
-                  @csrf
-                  <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-                </form>
-                @endif
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
+                  @if(Auth::user()->hasRole('administrator'))
+                  <form method="GET" action="{{route('user.edit', $user)}}">
+                    @csrf
+                    <button type="submit" class="btn btn-primary btn-sm">EDIT</button>
+                  </form>
+                  <form method="POST" action="{{route('user.destroy', $user)}}">
+                    @csrf
+                    <button type="submit" onclick="return confirm('Ar tikrai norite trinti?')" class="btn btn-danger btn-sm">DELETE</button>
+                  </form>
+                  @endif
                 </div>
-              </td>
-              <td>
-                <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button class="btn btn-primary me-md-2" type="button">Button</button>
-                  <button class="btn btn-primary" type="button">Button</button>
-                </div> -->
               </td>
             </tr>
           </tbody>

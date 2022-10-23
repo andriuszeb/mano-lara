@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\RoleUser;
-use App\Models\role;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use DB;
 
@@ -16,6 +16,9 @@ class AdministratorController extends Controller
         $users = User::all();
 
         return view('administrator.index', ['users' => $users]);
+
+        
+
     }
 
     /**
@@ -23,23 +26,24 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-//     public function create()
-//     {
-      
+    public function create(User $user)
+    {
+        $roles = Role::all();
 
-//         // return view('author.create');
-//     }
+        return view('administrator.create',['user' => $user,'roles'=>$roles]);
+        
+    }
 
-//     /**
-//      * Store a newly created resource in storage.
-//      *
-//      * @param  \App\Http\Requests\StoreAuthorRequest  $request
-//      * @return \Illuminate\Http\Response
-//      */
-//     public function store(StoreAuthorRequest $request)
-//     {
-//         // dd($request);
-//         // dd($request->all());     
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreUserRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, User $user)
+    {
+        // dd($request);
+        // dd($request->all());     
 //         $validator = Validator::make($request->all(), 
 //     [
 //         'author_name'=> ['required','min:2','max:64'],
@@ -55,27 +59,37 @@ class AdministratorController extends Controller
 //         'author_surname.max' => 'per ilgas pavarde',
 //     ]
 // );
-//     if($validator->fails()){
-//         $request->flash();
-//         return redirect()->back()->withErrors($validator);
-//     }
-//         $author = new Author();
-//         $author->name = $request->author_name;
-//         $author->surname = $request->author_surname;
-//         $author->save();
-//         return redirect()->route('author.index')->with('success_message', 'Sekmingai įrašytas.');
-//     }
+    // if($validator->fails()){
+    //     $request->flash();
+    //     return redirect()->back()->withErrors($validator);
+    // }
 
-//     /**
-//      * Display the specified resource.
-//      *
-//      * @param  \App\Models\Author  $author
-//      * @return \Illuminate\Http\Response
-//      */
-//     public function show(Author $author)
-//     {
-//         //
-//     }
+        $user = new User();
+        $user->name = $request->user_name;
+        $user->surname = $request->user_surname;
+        $user->email = $request->user_email;
+        $user->password = $request->user_password;
+        $user->save();
+
+
+        $request->input('name');
+        if ($request->input("cancel")) {
+            return redirect()->route('administrator.index')->with('success_message', 'Pakeitimai atšaukti.');
+        } else {
+            return redirect()->route('administrator.index')->with('success_message', 'Sėkmingai įrašytas.');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Author  $author
+     * @return \Illuminate\Http\Response
+     */
+    // public function show(Author $author)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -105,7 +119,16 @@ class AdministratorController extends Controller
         // $author->name = $request->author_name;
         // $author->surname = $request->author_surname;
         // $author->save();
-        return redirect()->route('administrator.index')->with('success_message', 'Sėkmingai pakeistas.');
+        // return redirect()->route('administrator.index')->with('success_message', 'Sėkmingai pakeistas.');
+        // $request->all(); (istraukia visus request duominis)
+
+        $request->input('name');
+        if ($request->input("cancel")) {
+            return redirect()->route('administrator.index')->with('success_message', 'Pakeitimai atšaukti.');
+        } else {
+            return redirect()->route('administrator.index')->with('success_message', 'Sėkmingai pakeistas.');
+        }
+
     }
 
 //     /**
